@@ -1,20 +1,20 @@
 import { useState } from "react";
 
 const COLORS = {
-  bg: "#0a0e1a",
-  card: "#111827",
-  cardHover: "#1a2235",
-  accent: "#00d4ff",
-  accentGlow: "rgba(0, 212, 255, 0.15)",
+  bg: "#0a0a0f",
+  card: "rgba(255, 255, 255, 0.03)",
+  cardHover: "rgba(255, 255, 255, 0.06)",
+  accent: "#8b5cf6",
+  accentGlow: "rgba(139, 92, 246, 0.12)",
   green: "#10b981",
   red: "#ef4444",
   orange: "#f59e0b",
-  purple: "#a78bfa",
-  pink: "#f472b6",
-  text: "#e2e8f0",
-  textDim: "#94a3b8",
-  border: "#1e293b",
-  highlight: "#22d3ee",
+  purple: "#8b5cf6",
+  pink: "#ec4899",
+  text: "#ffffff",
+  textDim: "rgba(255, 255, 255, 0.6)",
+  border: "rgba(255, 255, 255, 0.08)",
+  highlight: "#3b82f6",
 };
 
 const tabs = [
@@ -851,12 +851,12 @@ export default function QuantumGatesExplainer() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.text, fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: COLORS.bg, color: COLORS.text, fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" }}>
       <div style={{ maxWidth: 880, margin: "0 auto", padding: "24px 20px" }}>
         {/* Header */}
         <div style={{ marginBottom: 28, textAlign: "center" }}>
-          <h1 style={{ fontSize: 28, fontWeight: 900, margin: 0, letterSpacing: "-1px", fontFamily: "'Fira Code', monospace" }}>
-            <span style={{ color: COLORS.accent }}>Quantum</span> <span style={{ color: COLORS.textDim }}>Gates</span>
+          <h1 style={{ fontSize: 28, fontWeight: 800, margin: 0, letterSpacing: "-1px", fontFamily: "'Inter', sans-serif", background: "linear-gradient(135deg, #fff 0%, #a8edea 40%, #fed6e3 70%, #ffecd2 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            Quantum Gates
           </h1>
           <p style={{ color: COLORS.textDim, fontSize: 13, margin: "6px 0 0 0" }}>
             Single & Two-Qubit Gates
@@ -867,7 +867,7 @@ export default function QuantumGatesExplainer() {
         <div style={{ display: "flex", gap: 6, marginBottom: 28, overflowX: "auto", paddingBottom: 4 }}>
           {tabs.map(t => (
             <button key={t.id} onClick={() => setActiveTab(t.id)}
-              style={{ padding: "10px 16px", borderRadius: 10, border: `1.5px solid ${activeTab === t.id ? COLORS.accent : COLORS.border}`, background: activeTab === t.id ? COLORS.accentGlow : "transparent", color: activeTab === t.id ? COLORS.accent : COLORS.textDim, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", transition: "all 0.2s", display: "flex", alignItems: "center", gap: 6 }}>
+              style={{ padding: "10px 16px", borderRadius: 10, border: `1px solid ${activeTab === t.id ? "rgba(139, 92, 246, 0.4)" : COLORS.border}`, background: activeTab === t.id ? "rgba(99, 102, 241, 0.2)" : COLORS.card, backdropFilter: "blur(10px)", color: activeTab === t.id ? "#a78bfa" : COLORS.textDim, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", transition: "all 0.2s", display: "flex", alignItems: "center", gap: 6 }}>
               <span>{t.icon}</span> {t.label}
             </button>
           ))}

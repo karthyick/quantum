@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantum Gates Explorer | KR</title>
+  <meta name="description" content="Interactive quantum gates explorer — single qubit, CNOT, entanglement, Bloch sphere, and universal gate sets visualized with React.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Quantum Gates Explorer | KR">
+  <meta property="og:description" content="Interactive quantum gates explorer — single qubit, CNOT, entanglement, Bloch sphere, and universal gate sets.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quantum-gates.aichargeworks.com">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚛️</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0f; overflow-y: scroll; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+    #root { min-height: 100vh; }
+  </style>
+
+  <!-- React 18 UMD -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel Standalone -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Make React hooks available globally for JSX loaded without ES module imports -->
+  <script>const { useState } = React;</script>
+
+  <script>
+    // Fetch the JSX source, strip ES module syntax, transform with Babel, and run
+    fetch('quantum-gates.jsx?v=2')
+      .then(function(response) {
+        if (!response.ok) throw new Error('Failed to load quantum-gates.jsx: ' + response.status);
+        return response.text();
+      })
+      .then(function(code) {
+        // Strip "import { useState } from 'react';" line
+        code = code.replace(/^import\s+\{[^}]*\}\s+from\s+['"]react['"];?\s*$/m, '');
+        // Strip "export default " keyword (keep the function declaration)
+        code = code.replace(/export\s+default\s+/g, '');
+
+        // Transform JSX to plain JS via Babel
+        var transformed = Babel.transform(code, {
+          presets: ['react'],
+          filename: 'quantum-gates.jsx'
+        }).code;
+
+        // Execute the transformed code in global scope
+        var script = document.createElement('script');
+        script.textContent = transformed;
+        document.body.appendChild(script);
+
+        // Mount the app
+        var root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(QuantumGatesExplainer));
+      })
+      .catch(function(err) {
+        console.error(err);
+        document.getElementById('root').innerHTML =
+          '<div style="color:#ef4444;padding:40px;text-align:center;font-family:monospace;">' +
+          '<h2>Failed to load Quantum Gates Explorer</h2>' +
+          '<p style="margin-top:12px;color:#94a3b8;">' + err.message + '</p></div>';
+      });
+  </script>
+</body>
+</html>
