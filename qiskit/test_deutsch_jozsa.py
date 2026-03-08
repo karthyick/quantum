@@ -10,9 +10,9 @@ from deutsch_jozsa import (
     oracle_constant_0,
     oracle_constant_1,
     oracle_balanced_xor,
-    oracle_balanced_phase,
+    oracle_balanced_inner_product as oracle_balanced_phase,
     build_dj_circuit,
-    classify,
+    classify_result as classify,
 )
 
 SIM = AerSimulator()
